@@ -134,6 +134,31 @@ Node* insertTail(Node* head, int val){
     return head;
 }
 
+Node* insertK(Node* head, int val, int k){
+    if(head == NULL){
+        if(k==1) return new Node(val);
+        else return NULL;
+    }
+
+    if(k==1){
+        Node* temp = new Node(val, head);
+        return temp;
+    }
+    Node* temp = head;
+    int cnt= 0;
+    while(temp != NULL){
+        cnt++;
+        if(cnt == k-1){
+            Node* newNode = new Node(val);
+            newNode->next = temp->next;
+            temp->next= newNode;
+            break;
+        }
+        temp = temp->next;
+    }
+    return head;
+}
+
 void printLL(Node* head){
     while(head != nullptr){
         cout<<head->data<<" ->";
@@ -145,7 +170,7 @@ void printLL(Node* head){
 int main(){
     vector<int> arr = {1,2,3,4,5,};
     Node* head = convertArr2LL(arr);
-    head = insertTail(head,300);
+    head = insertK(head,300, 3);
     printLL(head);
 
     return 0;
