@@ -145,10 +145,34 @@ Node* insertK(Node* head, int val, int k){
         return temp;
     }
     Node* temp = head;
-    int cnt= 0;
+    int cnt= 0 ;
     while(temp != NULL){
         cnt++;
         if(cnt == k-1){
+            Node* newNode = new Node(val);
+            newNode->next = temp->next;
+            temp->next= newNode;
+            break;
+        }
+        temp = temp->next;
+    }
+    return head;
+}
+
+Node* insertBeforeValue(Node* head, int val, int ele){
+    if(head == NULL){
+        return NULL;
+    }
+
+    if(ele==head->data){
+        Node* temp = new Node(val, head);
+        return temp;
+    }
+    Node* temp = head;
+   
+    while(temp->next != NULL){
+        
+        if(ele == temp->next->data){
             Node* newNode = new Node(val);
             newNode->next = temp->next;
             temp->next= newNode;
@@ -170,7 +194,7 @@ void printLL(Node* head){
 int main(){
     vector<int> arr = {1,2,3,4,5,};
     Node* head = convertArr2LL(arr);
-    head = insertK(head,300, 3);
+    head = insertBeforeValue(head,300, 3);
     printLL(head);
 
     return 0;
