@@ -62,6 +62,31 @@ Node* deleteTail(Node* head){
     return head;
 }
 
+Node* deleteK(Node* head, int k){
+    if(head == NULL) return NULL;
+    Node* temp = head;
+    int cnt = 0;
+    while(temp != NULL){
+        cnt++;
+        if(cnt == k) break;
+        else temp = temp->next;
+    }
+
+    Node* prev = temp->back;
+    Node* front = temp->next;
+
+    if(prev == NULL && front == NULL){
+        delete temp; return NULL;
+    }else if(prev == NULL) return deleteHead(head);
+    else if(front == NULL) return deleteTail(head);
+
+    prev->next = front;
+    front->back = prev;
+    temp->next = nullptr;
+    temp->back = nullptr;
+    delete temp;return head;
+}
+
 void printLL(Node* head){
     while(head != NULL){
         cout << head->data << "<->" ;
@@ -72,7 +97,7 @@ void printLL(Node* head){
 int main(){
     vector<int> arr = { 1,2,3,4,5};
     Node* head = convertArr(arr);
-    head = deleteTail(head);
+    head = deleteK(head, 4);
     printLL(head);
 
 
