@@ -161,6 +161,7 @@ Node* insertK(Node* head, int val, int k){
 
 Node* insertBeforeValue(Node* head, int val, int ele){
     if(head == NULL){
+        cout << "element not found" << endl;
         return NULL;
     }
 
@@ -169,6 +170,7 @@ Node* insertBeforeValue(Node* head, int val, int ele){
         return temp;
     }
     Node* temp = head;
+    bool found = false;
    
     while(temp->next != NULL){
         
@@ -176,10 +178,13 @@ Node* insertBeforeValue(Node* head, int val, int ele){
             Node* newNode = new Node(val);
             newNode->next = temp->next;
             temp->next= newNode;
+            found = true;
             break;
         }
         temp = temp->next;
     }
+
+    if(found == false) cout << "ele not there" << endl;
     return head;
 }
 
@@ -194,7 +199,7 @@ void printLL(Node* head){
 int main(){
     vector<int> arr = {1,2,3,4,5,};
     Node* head = convertArr2LL(arr);
-    head = insertBeforeValue(head,300, 3);
+    head = insertBeforeValue(head,300, 6);
     printLL(head);
 
     return 0;
