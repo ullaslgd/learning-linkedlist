@@ -34,6 +34,15 @@ Node* convertArr(vector<int> &arr){
     return head;
 }
 
+Node* deleteHead(Node*  head){
+    Node* prev = head;
+    head = head->next;
+    prev->next = nullptr;
+    head->back = nullptr;
+    free(prev);
+    return head;
+}
+
 void printLL(Node* head){
     while(head != NULL){
         cout << head->data << "<->" ;
@@ -44,6 +53,7 @@ void printLL(Node* head){
 int main(){
     vector<int> arr = { 1,2,3,4,5};
     Node* head = convertArr(arr);
+    head = deleteHead(head);
     printLL(head);
 
 
