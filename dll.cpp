@@ -103,6 +103,56 @@ void deleteNode(Node* temp){
     free(temp); return;
 }
 
+Node* insertBeforeHead(Node* head, int ele){
+    Node* temp = new Node(ele, head, nullptr);
+    head->back = temp; return temp;
+}
+
+Node* insertBeforeTail(Node* head, int ele){
+    if(head->next==NULL) return insertBeforeHead(head,ele);
+    Node* tail = head;
+    while(tail->next != NULL) tail= tail->next;
+    Node* prev = tail->back;
+    Node* temp = new Node(ele, tail, prev);
+    prev->next = temp;
+    tail->back = temp;
+    return head;
+}
+
+Node* insertBeforeK(Node* head, int ele, int k){
+    if(k==1) return insertBeforeHead(head,ele);
+    int cnt = 0;
+    Node* temp = head;
+    while(temp!= NULL ){
+        cnt++;
+        if(k == cnt){
+            break;
+        }
+        temp = temp->next;
+    }
+    Node* prev = temp->back;
+    Node* newNode = new Node(ele, temp, prev);
+    prev->next = newNode;
+    temp->back = newNode;
+    return head;
+}
+
+Node* insertBeforeN(Node* head, int ele, int n){
+    if(head->data == n) return insertBeforeHead(head, ele);
+    Node* temp = head;
+    while(temp != NULL){
+        if(temp->data == n) break;
+        temp = temp->next;
+    }
+
+    Node* prev = temp->back;
+    Node* newNode = new Node(ele, temp, prev);
+    prev->next = newNode;
+    temp->back = newNode;
+    return head;
+
+}
+
 void printLL(Node* head){
     while(head != NULL){
         cout << head->data << "<->" ;
@@ -113,7 +163,7 @@ void printLL(Node* head){
 int main(){
     vector<int> arr = { 1,2,3,4,5};
     Node* head = convertArr(arr);
-    head = deleteK(head, 4);
+    head = insertBeforeN(head, 0, 3);
     printLL(head);
 
 
